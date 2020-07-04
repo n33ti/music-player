@@ -1,0 +1,39 @@
+#menu {
+    border : 1px solid orange;
+    background-color: black;
+    color: slategray;
+    margin: 0 auto;
+  
+
+}
+#menu-list
+{
+    min-width: 696px;
+
+    padding-top: 20px;
+    list-style: disc;
+}
+
+ul#menu-list li {
+    display: inline;
+    cursor: pointer;
+}
+.column {
+    float: left;
+    width: 33.33%
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    clear: both;
+    display: table;
+  }
+
+
+  table{
+      border: 1px solid grey;
+  }
+
+td {
+    cursor: pointer;
+}
