@@ -84,6 +84,13 @@ var th2 = document.createElement('th')
 th2.innerHTML = "Action"
 document.getElementById('tr').appendChild(th2)
 
+var play = document.createElement('audio')
+play.setAttribute('controls', '')
+play.setAttribute('id', 'audio')
+document.body.appendChild(play)
+var src = document.createElement('source')
+src.setAttribute('src',"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3")
+play.appendChild(src)
 
 
 }
@@ -109,7 +116,7 @@ function create()
     var submit = document.createElement('button')
     submit.setAttribute('type','submit')
     submit.setAttribute('form', 'form1');
-    submit.setAttribute('form', 'form1');
+   
     submit.setAttribute('onclick', 'createPlaylist(document.getElementById("text1").value)')
    submit.innerHTML = "submit"
     document.getElementById('form1').appendChild(submit)
@@ -122,7 +129,7 @@ function create()
 
 function createPlaylist(name)
 {
-    show = true;
+   
   var playlist = new Playlist()
   playlist.name = name
   playlists.push(playlist)
@@ -130,8 +137,8 @@ function createPlaylist(name)
   playlists.push(playlist)
     console.log("here")
    
-    console.log(playlists.toString())
-   
+    console.log(playlist.id)
+    var i = playlist.id
     var trow = document.createElement('tr')
     var rid = 'trow'+(playlist.id).toString()
     trow.setAttribute('id', rid)
@@ -140,7 +147,7 @@ function createPlaylist(name)
     var tid2 = 'td'+(playlist.id).toString()+1 + '2';
     var td1 = document.createElement('td')
     td1.setAttribute('id', tid1)
-    td1.setAttribute('onclick' , 'songs(' +playlist.id.toString()+ ')')
+    td1.setAttribute('onclick' , 'songs('+i+')')
     td1.innerHTML = playlist.name.toString()
     //console.log(td1.innerText)
    
@@ -149,13 +156,14 @@ function createPlaylist(name)
     
     var td2 = document.createElement('td')
     td2.setAttribute('id', tid2)
-    td2.setAttribute('onclick' , 'play(' +playlist.id.toString()+ ')')
+    td2.setAttribute('onclick' , 'playURl('+i+ ')')
     td2.innerHTML ="play >"
     document.getElementById(rid).appendChild(td2)
 }
 
 function songs(pid)
 {
+    pid = parseInt(pid)
     var player = playlists[pid-1] 
     console.log(player)
     var table2 = document.createElement('table')
@@ -191,6 +199,13 @@ function songs(pid)
         trS.appendChild(tds3)
 
     }
+    var element =  document.getElementById('form2');
+if (typeof(element) != 'undefined' && element != null)
+{
+  // Exists.
+  return;
+}
+
     var br  = document.createElement('br')
     document.getElementById('col3').appendChild(br)
     var form = document.createElement('form')
@@ -260,12 +275,10 @@ function playUrl(url)
     document.getElementById('form2').parentNode.removeChild(document.getElementById('form2'));
     document.getElementById('form3').parentNode.removeChild(document.getElementById('form3'));
     console.log('hello from play url')
-    var play = document.createElement('audio')
-    play.setAttribute('controls', '')
-    document.body.appendChild(play)
+
     var src = document.createElement('source')
     src.setAttribute('src', url.toString())
-    play.appendChild(src)
+    document.getElementById('audio').appendChild(src)
 
 }
 
@@ -279,14 +292,11 @@ function search()
 
 function play()
 {
-    if(show2 === false)
-    {
-    
     var form3 = document.createElement('form')
     form3.setAttribute('id', 'form3')
     document.body.appendChild(form3)
 
- 
+    
     var br  = document.createElement('br')
     form3.append(br)
     form3.append("Add URL")
@@ -300,33 +310,27 @@ function play()
     btn.setAttribute('onclick', 'play1()')
     btn.innerHTML = "play"
     form3.appendChild(btn)
-
-    }
-    else
-    {
-        show2 = true;
-        document.getElementById('form2').parentNode.removeChild(document.getElementById('form2'));
-        document.getElementById('form3').parentNode.removeChild(document.getElementById('form3'));
-    }
+    
+  
     
 }
 
 function play1()
 {
-    if(show1 === false)
+   
+    if(show1 === true)
     {
-    var play = document.createElement('audio')
-    play.setAttribute('controls', '')
-    play.setAttribute('id', 'play1')
-    document.body.appendChild(play)
-    var src = document.createElement('source')
-    src.setAttribute('src', 'document.getByElementId("tu5").value')
-    src.setAttribute('type', 'audio/mpeg')
-    play.appendChild(src)  
-    }
-    else{
-        show1 = true;
+        show1 = false;
         document.getElementById('play1').parentNode.removeChild(document.getElementById('play1'));
+    }
+    else
+    {
 
+   
+    var src = document.createElement('source')
+    src.setAttribute('src','document.getElementById("tu5").innerText')
+    document.getElementById('audio').appendChild(src)
+   
+       
     } 
 }
